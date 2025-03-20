@@ -1,7 +1,7 @@
 package main
 
 import (
-	"os"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,27 +17,23 @@ var users = []User{
 	{ID: 2, Name: "Jane Doe"},
 }
 
-func main() {
-	r := gin.Default()
+func Handler(w http.ResponseWriter, r *http.Request) {
+	rg := gin.Default()
 
-	r.GET("/api/users", func(c *gin.Context) {
-		c.JSON(200, users)
+	rg.GET("/api/users", func(c *gin.Context) {
+		c.JSON(http.StatusOK, users)
 	})
 
-	r.POST("/api/users", func(c *gin.Context) {
+	rg.POST("/api/users", func(c *gin.Context) {
 		var newUser User
 		if err := c.ShouldBindJSON(&newUser); err != nil {
-			c.JSON(400, gin.H{"error": err.Error()})
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 		newUser.ID = len(users) + 1
 		users = append(users, newUser)
-		c.JSON(201, newUser)
+		c.JSON(http.StatusCreated, newUser)
 	})
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // Default port
-	}
-	r.Run(":" + port)
+	rg.ServeHTTP(w, r)
 }
