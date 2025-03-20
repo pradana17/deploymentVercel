@@ -1,4 +1,4 @@
-package handler
+package main
 
 import (
 	"net/http"
@@ -17,23 +17,28 @@ var users = []User{
 	{ID: 2, Name: "Jane Doe"},
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	rg := gin.Default()
+func handler(w http.ResponseWriter, r *http.Request) {
+	router := gin.Default()
 
-	rg.GET("/api/users", func(c *gin.Context) {
-		c.JSON(http.StatusOK, users)
+	router.GET("/api/users", func(c *gin.Context) {
+		c.JSON(200, users)
 	})
 
-	rg.POST("/api/users", func(c *gin.Context) {
+	router.POST("/api/users", func(c *gin.Context) {
 		var newUser User
 		if err := c.ShouldBindJSON(&newUser); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
 		newUser.ID = len(users) + 1
 		users = append(users, newUser)
-		c.JSON(http.StatusCreated, newUser)
+		c.JSON(201, newUser)
 	})
 
-	rg.ServeHTTP(w, r)
+	router.ServeHTTP(w, r)
+}
+
+func main() {
+	http.HandleFunc("/api/users", handler)
+	http.ListenAndServe(":3000", nil)
 }
