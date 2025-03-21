@@ -34,7 +34,7 @@
 
 ## Hasil Deploy
 URL API:
-[https://deployment-vercel-lsxwcupgf-pradana17s-projects.vercel.app/api/users](https://deployment-vercel-lsxwcupgf-pradana17s-projects.vercel.app/api/users)
+[https://deployment-vercel-qibith2dv-pradana17s-projects.vercel.app/](https://deployment-vercel-qibith2dv-pradana17s-projects.vercel.app/api/users)
 
 ---
 
