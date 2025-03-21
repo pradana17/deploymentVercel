@@ -1,4 +1,3 @@
-/*
 # Go API Deployment on Vercel
 
 ## Cara Menjalankan API di Vercel
@@ -25,7 +24,24 @@
 
 5. **Cek URL hasil deployment yang diberikan oleh Vercel.**
 
+---
+
 ## Endpoint API
 - **GET /api/users** → Mengembalikan daftar pengguna statis.
 - **POST /api/users** → Menambahkan pengguna baru ke dalam array sementara.
-*/
+
+---
+
+## Hasil Deploy
+URL API:
+[https://deployment-vercel-lsxwcupgf-pradana17s-projects.vercel.app/api/users](https://deployment-vercel-lsxwcupgf-pradana17s-projects.vercel.app/api/users)
+
+---
+
+## Hasil Pengujian (Postman)
+### 1. GET /api/users
+![GET Users](./screenshots/get-users.png)
+
+### 2. POST /api/users
+![POST Users](./screenshots/post-users.png)
+![GET Users After POST ](./screenshots/get-users2.png)
